@@ -1,0 +1,352 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "U0_s0itZBtss"
+      },
+      "outputs": [],
+      "source": [
+        "!pip install transformers torch gradio -q"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "background_save": true,
+          "referenced_widgets": [
+            "e3f8cd59a7f24f31816932b2f3547f13",
+            "3159605a801d4a2ab47e55a39756be70",
+            "7c1f6674f72547268c14df2bb47db0a2",
+            "f3c313ab2ed4493fa591881ed5144866",
+            "03d91baa66744f91986458cc683f4ca7",
+            "98f06adbb6734979ba703316af35ac65",
+            "007edbc2c5a948bfb013b9c3b45ea434",
+            "bd2599909b4a4d9fb9f0af2e02ac8860",
+            "e125407a130f48939f0ebe1494b83808",
+            "b5fb229dcf354cc6bb1b1c1edd3c0a12",
+            "3a8039db8746422ca847811e4212b1bf",
+            "06932e3860564aa0b13b8ff94d359940",
+            "a4ba91716dc2422b9c9e908327d0d4c3"
+          ]
+        },
+        "id": "L1rB2P2OCWoj",
+        "outputId": "beff5572-ecfb-460b-fd82-361f7ad35cd1"
+      },
+      "outputs": [
+        {
+          "name": "stderr",
+          "output_type": "stream",
+          "text": [
+            "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_auth.py:104: UserWarning: \n",
+            "Error while fetching `HF_TOKEN` secret value from your vault: 'Requesting secret HF_TOKEN timed out. Secrets can only be fetched when running from the Colab UI.'.\n",
+            "You are not authenticated with the Hugging Face Hub in this notebook.\n",
+            "If the error persists, please let us know by opening an issue on GitHub (https://github.com/huggingface/huggingface_hub/issues/new).\n",
+            "  warnings.warn(\n"
+          ]
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "e3f8cd59a7f24f31816932b2f3547f13",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "tokenizer_config.json: 0.00B [00:00, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "3159605a801d4a2ab47e55a39756be70",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "vocab.json: 0.00B [00:00, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "7c1f6674f72547268c14df2bb47db0a2",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "merges.txt: 0.00B [00:00, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "f3c313ab2ed4493fa591881ed5144866",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "tokenizer.json: 0.00B [00:00, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "03d91baa66744f91986458cc683f4ca7",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "added_tokens.json:   0%|          | 0.00/87.0 [00:00<?, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "98f06adbb6734979ba703316af35ac65",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "special_tokens_map.json:   0%|          | 0.00/701 [00:00<?, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "007edbc2c5a948bfb013b9c3b45ea434",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "config.json:   0%|          | 0.00/786 [00:00<?, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "name": "stderr",
+          "output_type": "stream",
+          "text": [
+            "`torch_dtype` is deprecated! Use `dtype` instead!\n"
+          ]
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "bd2599909b4a4d9fb9f0af2e02ac8860",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "model.safetensors.index.json: 0.00B [00:00, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "e125407a130f48939f0ebe1494b83808",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "b5fb229dcf354cc6bb1b1c1edd3c0a12",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "model-00002-of-00002.safetensors:   0%|          | 0.00/67.1M [00:00<?, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "3a8039db8746422ca847811e4212b1bf",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "model-00001-of-00002.safetensors:   0%|          | 0.00/5.00G [00:00<?, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "06932e3860564aa0b13b8ff94d359940",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "application/vnd.jupyter.widget-view+json": {
+              "model_id": "a4ba91716dc2422b9c9e908327d0d4c3",
+              "version_major": 2,
+              "version_minor": 0
+            },
+            "text/plain": [
+              "generation_config.json:   0%|          | 0.00/137 [00:00<?, ?B/s]"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "name": "stdout",
+          "output_type": "stream",
+          "text": [
+            "Colab notebook detected. To show errors in colab notebook, set debug=True in launch()\n",
+            "* Running on public URL: https://5ec72dde686a1a41d4.gradio.live\n",
+            "\n",
+            "This share link expires in 1 week. For free permanent hosting and GPU upgrades, run `gradio deploy` from the terminal in the working directory to deploy to Hugging Face Spaces (https://huggingface.co/spaces)\n"
+          ]
+        },
+        {
+          "data": {
+            "text/html": [
+              "<div><iframe src=\"https://5ec72dde686a1a41d4.gradio.live\" width=\"100%\" height=\"500\" allow=\"autoplay; camera; microphone; clipboard-read; clipboard-write;\" frameborder=\"0\" allowfullscreen></iframe></div>"
+            ],
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ]
+          },
+          "metadata": {},
+          "output_type": "display_data"
+        },
+        {
+          "data": {
+            "text/plain": []
+          },
+          "execution_count": 3,
+          "metadata": {},
+          "output_type": "execute_result"
+        }
+      ],
+      "source": [
+        "import gradio as gr\n",
+        "import torch\n",
+        "from transformers import AutoTokenizer, AutoModelForCausalLM\n",
+        "\n",
+        "# Load model and tokenizer\n",
+        "model_name = \"ibm-granite/granite-3.2-2b-instruct\"\n",
+        "tokenizer = AutoTokenizer.from_pretrained(model_name)\n",
+        "model = AutoModelForCausalLM.from_pretrained(\n",
+        "    model_name,\n",
+        "    torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,\n",
+        "    device_map=\"auto\" if torch.cuda.is_available() else None\n",
+        ")\n",
+        "\n",
+        "if tokenizer.pad_token is None:\n",
+        "    tokenizer.pad_token = tokenizer.eos_token\n",
+        "\n",
+        "def generate_response(prompt, max_length=512):\n",
+        "    inputs = tokenizer(prompt, return_tensors=\"pt\", truncation=True, max_length=512)\n",
+        "\n",
+        "    if torch.cuda.is_available():\n",
+        "        inputs = {k: v.to(model.device) for k, v in inputs.items()}\n",
+        "\n",
+        "    with torch.no_grad():\n",
+        "        outputs = model.generate(\n",
+        "            **inputs,\n",
+        "            max_length=max_length,\n",
+        "            temperature=0.7,\n",
+        "            do_sample=True,\n",
+        "            pad_token_id=tokenizer.eos_token_id\n",
+        "        )\n",
+        "\n",
+        "    response = tokenizer.decode(outputs[0], skip_special_tokens=True)\n",
+        "    response = response.replace(prompt, \"\").strip()\n",
+        "    return response\n",
+        "\n",
+        "def concept_explanation(concept):\n",
+        "    prompt = f\"Explain the concept of {concept} in detail with examples:\"\n",
+        "    return generate_response(prompt, max_length=800)\n",
+        "\n",
+        "def quiz_generator(concept):\n",
+        "    prompt = f\"Generate 5 quiz questions about {concept} with different question types (multiple choice, true/false, short answer). At the end, provide all the answers in a separate ANSWERS section:\"\n",
+        "    return generate_response(prompt, max_length=1000)\n",
+        "\n",
+        "# Create Gradio interface\n",
+        "with gr.Blocks() as app:\n",
+        "    gr.Markdown(\"# Educational AI Assistant\")\n",
+        "\n",
+        "    with gr.Tabs():\n",
+        "        with gr.TabItem(\"Concept Explanation\"):\n",
+        "            concept_input = gr.Textbox(label=\"Enter a concept\", placeholder=\"e.g., machine learning\")\n",
+        "            explain_btn = gr.Button(\"Explain\")\n",
+        "            explanation_output = gr.Textbox(label=\"Explanation\", lines=10)\n",
+        "\n",
+        "            explain_btn.click(concept_explanation, inputs=concept_input, outputs=explanation_output)\n",
+        "\n",
+        "        with gr.TabItem(\"Quiz Generator\"):\n",
+        "            quiz_input = gr.Textbox(label=\"Enter a topic\", placeholder=\"e.g., physics\")\n",
+        "            quiz_btn = gr.Button(\"Generate Quiz\")\n",
+        "            quiz_output = gr.Textbox(label=\"Quiz Questions\", lines=15)\n",
+        "\n",
+        "            quiz_btn.click(quiz_generator, inputs=quiz_input, outputs=quiz_output)\n",
+        "\n",
+        "app.launch(share=True)"
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
